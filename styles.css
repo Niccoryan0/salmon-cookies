@@ -2,12 +2,13 @@ main {
   text-align: center;
   margin: 5px;
 }
-#salesTable {
+table {
   border-collapse: collapse;
   width: 100%;
+  margin: 20px;
 }
 
-#salesTable, th, td, tr {
+table, th, td, tr {
   border: 1px solid;
 }
 
