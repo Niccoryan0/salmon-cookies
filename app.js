@@ -239,60 +239,59 @@ limaStore.salesHourlyandTotal();
 
 
 // =================MOSTLY FOR FUN BELOW THIS LINE=======================
-// Trying to work the objects into a single
+// Trying to work the objects into a single function based class, still in progress, let me know if you see this and want me to not do this
 
-function store(location, minCustomers, maxCustomers, avgCookies) {
-  this.location = location;
-  this.minCustomers = minCustomers,
-  this.maxCustomers = maxCustomers,
-  this.avgCookies = avgCookies,
-  this.salesArrayRaw = [],
-  this.salesArrayStrings = [],
-  this.salesTotal = 0;
-}
+// function store(location, minCustomers, maxCustomers, avgCookies) {
+//   this.location = location;
+//   this.minCustomers = minCustomers,
+//   this.maxCustomers = maxCustomers,
+//   this.avgCookies = avgCookies,
+//   this.salesArrayRaw = [],
+//   this.salesArrayStrings = [],
+//   this.salesTotal = 0;
+// }
 
-store.prototype.customersPerHour = function () {
-  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
-};
+// store.prototype.customersPerHour = function () {
+//   return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+// };
 
-store.prototype.salesHourlyandTotal = function () {
+// store.prototype.salesHourlyandTotal = function () {
 
-  for (var i  = 6; i < 20; i++) {
-    var cookiesThisHour = Math.round(this.customersPerHour() * this.avgCookies);
-    this.salesArrayRaw.push(cookiesThisHour);
-    if (i < 12) {
-      this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
-    } else if (i === 12) {
-      this.salesArrayStrings.push(i + 'pm: ' + cookiesThisHour + ' cookies');
-    } else {
-      this.salesArrayStrings.push((i-12) + 'pm: ' + cookiesThisHour + ' cookies');
-    }
-  }
-
-
-  for (i = 0; i < this.salesArrayRaw.length; i++) {
-    this.salesTotal = this.salesTotal + this.salesArrayRaw[i];
-  }
+//   for (var i  = 6; i < 20; i++) {
+//     var cookiesThisHour = Math.round(this.customersPerHour() * this.avgCookies);
+//     this.salesArrayRaw.push(cookiesThisHour);
+//     if (i < 12) {
+//       this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
+//     } else if (i === 12) {
+//       this.salesArrayStrings.push(i + 'pm: ' + cookiesThisHour + ' cookies');
+//     } else {
+//       this.salesArrayStrings.push((i-12) + 'pm: ' + cookiesThisHour + ' cookies');
+//     }
+//   }
 
 
-  var storeMain = document.getElementById('mainsales');
-  var newParaEl = document.createElement('p');
-  newParaEl.textContent = this.location + ' cookie sales:';
-  storeMain.appendChild(newParaEl);
-console.log(newParaEl);
-  var newOlEl = document.createElement('ol');
-  newParaEl.appendChild(newOlEl);
+//   for (i = 0; i < this.salesArrayRaw.length; i++) {
+//     this.salesTotal = this.salesTotal + this.salesArrayRaw[i];
+//   }
 
-  for (i = 0; i < this.salesArrayStrings.length; i++) {
-    var newLiEl = document.createElement('li');
-    newLiEl.textContent = this.salesArrayStrings[i];
-    newOlEl.appendChild(newLiEl);
-  }
-  newLiEl = document.createElement('li');
-  newLiEl.textContent = 'Total: ' + this.salesTotal + ' cookies';
-  newOlEl.appendChild(newLiEl);
-};
 
-const seattleLocation = new store('Seattle', 23, 65, 6.3);
-seattleLocation.salesHourlyandTotal();
+//   var storeMain = document.getElementById('mainsales');
+//   var newParaEl = document.createElement('p');
+//   newParaEl.textContent = this.location + ' cookie sales:';
+//   storeMain.appendChild(newParaEl);
+//   var newOlEl = document.createElement('ol');
+//   newParaEl.appendChild(newOlEl);
+
+//   for (i = 0; i < this.salesArrayStrings.length; i++) {
+//     var newLiEl = document.createElement('li');
+//     newLiEl.textContent = this.salesArrayStrings[i];
+//     newOlEl.appendChild(newLiEl);
+//   }
+//   newLiEl = document.createElement('li');
+//   newLiEl.textContent = 'Total: ' + this.salesTotal + ' cookies';
+//   newOlEl.appendChild(newLiEl);
+// };
+
+// const seattleLocation = new store('Seattle', 23, 65, 6.3);
+// seattleLocation.salesHourlyandTotal();
 
