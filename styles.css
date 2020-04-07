@@ -1,3 +1,16 @@
-table, td, th {
-  border: 1px solid black;
+main {
+  text-align: center;
+  margin: 5px;
+}
+#salesTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#salesTable, th, td, tr {
+  border: 1px solid;
+}
+
+tr {
+  height: 30px;
 }
