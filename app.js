@@ -8,11 +8,13 @@ var seattleStore = {
   salesTotal : 0,
 };
 
-seattleStore.salesHourlyandTotal = function () {
+seattleStore.custPerHour = function () {
+  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+};
 
+seattleStore.salesHourlyandTotal = function () {
   for (var i  = 6; i < 20; i++) {
-    var custThisHour = Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
-    var cookiesThisHour = Math.round(custThisHour * this.avgCookies);
+    var cookiesThisHour = Math.round(this.custPerHour() * this.avgCookies);
     this.salesArrayRaw.push(cookiesThisHour);
     if (i < 12) {
       this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
@@ -53,11 +55,13 @@ var tokyoStore = {
   salesTotal : 0,
 };
 
-tokyoStore.salesHourlyandTotal = function () {
+tokyoStore.custPerHour = function () {
+  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+};
 
+tokyoStore.salesHourlyandTotal = function () {
   for (var i  = 6; i < 20; i++) {
-    var custThisHour = Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
-    var cookiesThisHour = Math.round(custThisHour * this.avgCookies);
+    var cookiesThisHour = Math.round(this.custPerHour() * this.avgCookies);
     this.salesArrayRaw.push(cookiesThisHour);
     if (i < 12) {
       this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
@@ -68,14 +72,10 @@ tokyoStore.salesHourlyandTotal = function () {
     }
   }
 
-
   for (i = 0; i < this.salesArrayRaw.length; i++) {
     this.salesTotal = this.salesTotal + this.salesArrayRaw[i];
   }
-
-
   var tokyoOlEl = document.getElementById('tokyoul');
-
 
   for (i = 0; i < this.salesArrayStrings.length; i++) {
     var newLiEl = document.createElement('li');
@@ -97,11 +97,14 @@ var dubaiStore = {
   salesTotal : 0,
 };
 
+dubaiStore.custPerHour = function () {
+  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+};
+
 dubaiStore.salesHourlyandTotal = function () {
 
   for (var i  = 6; i < 20; i++) {
-    var custThisHour = Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
-    var cookiesThisHour = Math.round(custThisHour * this.avgCookies);
+    var cookiesThisHour = Math.round(this.custPerHour() * this.avgCookies);
     this.salesArrayRaw.push(cookiesThisHour);
     if (i < 12) {
       this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
@@ -141,11 +144,14 @@ var parisStore = {
   salesTotal : 0,
 };
 
+parisStore.custPerHour = function () {
+  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+};
+
 parisStore.salesHourlyandTotal = function () {
 
   for (var i  = 6; i < 20; i++) {
-    var custThisHour = Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
-    var cookiesThisHour = Math.round(custThisHour * this.avgCookies);
+    var cookiesThisHour = Math.round(this.custPerHour() * this.avgCookies);
     this.salesArrayRaw.push(cookiesThisHour);
     if (i < 12) {
       this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
@@ -185,11 +191,14 @@ var limaStore = {
   salesTotal : 0,
 };
 
+limaStore.custPerHour = function () {
+  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+};
+
 limaStore.salesHourlyandTotal = function () {
 
   for (var i  = 6; i < 20; i++) {
-    var custThisHour = Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
-    var cookiesThisHour = Math.round(custThisHour * this.avgCookies);
+    var cookiesThisHour = Math.round(this.custPerHour() * this.avgCookies);
     this.salesArrayRaw.push(cookiesThisHour);
     if (i < 12) {
       this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
@@ -226,3 +235,64 @@ tokyoStore.salesHourlyandTotal();
 dubaiStore.salesHourlyandTotal();
 parisStore.salesHourlyandTotal();
 limaStore.salesHourlyandTotal();
+
+
+
+// =================MOSTLY FOR FUN BELOW THIS LINE=======================
+// Trying to work the objects into a single
+
+function store(location, minCustomers, maxCustomers, avgCookies) {
+  this.location = location;
+  this.minCustomers = minCustomers,
+  this.maxCustomers = maxCustomers,
+  this.avgCookies = avgCookies,
+  this.salesArrayRaw = [],
+  this.salesArrayStrings = [],
+  this.salesTotal = 0;
+}
+
+store.prototype.customersPerHour = function () {
+  return Math.round(Math.random() * ((this.maxCustomers + 1) - this.minCustomers) + this.minCustomers);
+};
+
+store.prototype.salesHourlyandTotal = function () {
+
+  for (var i  = 6; i < 20; i++) {
+    var cookiesThisHour = Math.round(this.customersPerHour() * this.avgCookies);
+    this.salesArrayRaw.push(cookiesThisHour);
+    if (i < 12) {
+      this.salesArrayStrings.push(i + 'am: ' + cookiesThisHour + ' cookies');
+    } else if (i === 12) {
+      this.salesArrayStrings.push(i + 'pm: ' + cookiesThisHour + ' cookies');
+    } else {
+      this.salesArrayStrings.push((i-12) + 'pm: ' + cookiesThisHour + ' cookies');
+    }
+  }
+
+
+  for (i = 0; i < this.salesArrayRaw.length; i++) {
+    this.salesTotal = this.salesTotal + this.salesArrayRaw[i];
+  }
+
+
+  var storeMain = document.getElementById('mainsales');
+  var newParaEl = document.createElement('p');
+  newParaEl.textContent = this.location + ' cookie sales:';
+  storeMain.appendChild(newParaEl);
+console.log(newParaEl);
+  var newOlEl = document.createElement('ol');
+  newParaEl.appendChild(newOlEl);
+
+  for (i = 0; i < this.salesArrayStrings.length; i++) {
+    var newLiEl = document.createElement('li');
+    newLiEl.textContent = this.salesArrayStrings[i];
+    newOlEl.appendChild(newLiEl);
+  }
+  newLiEl = document.createElement('li');
+  newLiEl.textContent = 'Total: ' + this.salesTotal + ' cookies';
+  newOlEl.appendChild(newLiEl);
+};
+
+const seattleLocation = new store('Seattle', 23, 65, 6.3);
+seattleLocation.salesHourlyandTotal();
+
