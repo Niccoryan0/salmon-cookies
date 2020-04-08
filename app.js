@@ -2,7 +2,7 @@
 
 // Create the class Store which will take in location, min customers, max customers, and average cookies per day, will also include an openTime and closeTime just to play around with them, defaults set to 6 and 20 respectively
 function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, closeTime = 20) {
-  this.location = location
+  this.location = location,
   this.minCustomers = minCustomers,
   this.maxCustomers = maxCustomers,
   this.avgCookies = avgCookies,
@@ -55,7 +55,12 @@ Store.prototype.renderHeader = function() {
 
   // Grab a few necessary elements from the HTML to start the table
   var topRowLocation = document.getElementById('topRowSalesTable');
-
+  if (!document.getElementById('emptySpace')){
+    var emptySpaceTHead = document.createElement('th');
+    emptySpaceTHead.id = 'emptySpace';
+    emptySpaceTHead.textContent = '';
+    topRowLocation.appendChild(emptySpaceTHead);
+  }
   // Create a new heading for each column with the store's location
   var newTHeadEl = document.createElement('th');
   newTHeadEl.textContent = this.location;
@@ -109,6 +114,7 @@ Store.prototype.renderFooter = function() {
   totalTRowEl.appendChild(totalTDataEl);
 };
 
+// Calculates number of Cookie Tossers needed per hour
 Store.prototype.cookieTosserCalc = function () {
   this.renderFooter();
   for(var i = 0; i < (this.closeTime-this.openTime); i ++) {
@@ -120,11 +126,17 @@ Store.prototype.cookieTosserCalc = function () {
   }
 };
 
+// Displays header for cookie tosser table on the sales page
 Store.prototype.cookieTosserTableHeader = function() {
   this.cookieTosserCalc();
-
   // Grab a few necessary elements from the HTML to start the table
   var topRowLocation = document.getElementById('topRowTossersTable');
+  if (!document.getElementById('emptySpace2')){
+    var emptySpaceTHead = document.createElement('th');
+    emptySpaceTHead.id = 'emptySpace2';
+    emptySpaceTHead.textContent = '';
+    topRowLocation.appendChild(emptySpaceTHead);
+  }
 
   // Create a new heading for each column with the store's location
   var newTHeadEl = document.createElement('th');
@@ -132,6 +144,7 @@ Store.prototype.cookieTosserTableHeader = function() {
   topRowLocation.appendChild(newTHeadEl);
 };
 
+// Displays body for cookie tosser table on the sales page
 Store.prototype.cookieTosserTableBody = function() {
   this.cookieTosserTableHeader();
   var tossersTable = document.getElementById('tossersTable');
@@ -154,6 +167,7 @@ Store.prototype.cookieTosserTableBody = function() {
   }
 };
 
+var hourlyTotals = 0;
 
 
 
