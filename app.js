@@ -2,7 +2,7 @@
 
 // Create the class Store which will take in location, min customers, max customers, and average cookies per day, will also include an openTime and closeTime just to play around with them, defaults set to 6 and 20 respectively
 function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, closeTime = 20) {
-  this.location = location
+  this.location = location,
   this.minCustomers = minCustomers,
   this.maxCustomers = maxCustomers,
   this.avgCookies = avgCookies,
