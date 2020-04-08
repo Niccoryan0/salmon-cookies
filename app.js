@@ -26,6 +26,7 @@ function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, c
   }
 }
 
+
 // First method: Get a random number of customers within the range of min and max for each store per hour and puts them in an array
 Store.prototype.customersPerHour = function () {
   for (var i=0; i < this.hoursOpen.length; i++) {
@@ -115,8 +116,6 @@ Store.prototype.cookieTosserCalc = function () {
       this.cookieTossersNeeded.push(Math.ceil(this.salesArrayRaw[i]/20));
     }
   }
-  console.log(this.salesArrayRaw);
-  console.log(this.cookieTossersNeeded);
 };
 
 Store.prototype.cookieTosserTableHeader = function() {
@@ -151,6 +150,7 @@ Store.prototype.cookieTosserTableBody = function() {
     currentTRowEl.appendChild(newTDataEl);
   }
 };
+
 
 
 

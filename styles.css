@@ -1,17 +1,54 @@
-main {
-  text-align: center;
-  margin: 5px;
+.highlights {
+  font-family: Custom-Google;
+  color: red;
+}
+.data {
+  font-family: 'Gill Sans', Calibri,;
+  color: blue;
+}
+.text {
+  font-family: Constan;
+  color: green;
 }
 table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 20px;
+  background-color:blanchedalmond;
+}
+h1 {
+  text-align: center;
+}
+.salmonPic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+a {
+  background-color:red;
+  padding: 5px 10px 5px 10px;
 }
 
-table, th, td, tr {
-  border: 1px solid;
-}
+/* index ^ */
+/* ============================================= */
+/* sales v */
 
-tr {
-  height: 30px;
-}
+  body {
+    background-color: rgba(161, 0, 48, 0.582)
+  }
+  main {
+    text-align: center;
+    margin: 5px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0px 20px 0px;
+
+  }
+  
+  table, th, td, tr {
+    border: 1px solid;
+  }
+  
+  tr {
+    height: 30px;
+  }
