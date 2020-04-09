@@ -212,11 +212,56 @@ function renderTotalsToPage() {
   totalTRowEl.appendChild(totalTDataEl);
 }
 
+function cookieTossersPerHourAllCalc() {
+  var hourlyCTTotalsAll = new Array(locationArr[0].hoursOpen.length).fill(0);
+  var dailyCTTotalsAll = 0;
+  for (var i = 0; i < locationArr.length; i++){
+    for (var j = 0; j < locationArr[0].hoursOpen.length; j++) {
+      hourlyCTTotalsAll[j] += locationArr[i].cookieTossersNeeded[j];
+    }
+    dailyCTTotalsAll += locationArr[i].salesTotal;
+  }
+  return [hourlyCTTotalsAll,dailyCTTotalsAll];
+}
+
+function renderTossersTotalsToPage() {
+  var calcResults = cookieTossersPerHourAllCalc();
+
+  // Render Header First:
+  var topRowLocation = document.getElementById('topRowTossersTable');
+  var totalsTHead = document.createElement('th');
+  totalsTHead.textContent = 'Total';
+  topRowLocation.appendChild(totalsTHead);
+
+  // Render Body:
+
+  for (var i = 0; i < locationArr[0].hoursOpen.length; i++) {
+    var currentTRowEl = document.getElementById('time' + i);
+    var newTDataEl = document.createElement('td');
+    newTDataEl.id = 'data';
+    newTDataEl.textContent = calcResults[0][i];
+    currentTRowEl.appendChild(newTDataEl);
+
+    // for (i = 0; i < this.hoursOpen.length; i++) {
+    //   var currentTRowEl = document.getElementById('time' + i);
+    //   var newTDataEl = document.createElement('td');
+    //   newTDataEl.id = 'data';
+    //   newTDataEl.textContent = this.cookieTossersNeeded[i];
+    //   currentTRowEl.appendChild(newTDataEl);
+    // }
+
+  }
+
+}
+
+
+
 function renderEverything() {
   for(var i = 0; i < locationArr.length; i++) {
     locationArr[i].cookieTosserTableBody();
   }
   renderTotalsToPage();
+  renderTossersTotalsToPage();
 }
 
 
@@ -228,17 +273,6 @@ function renderEverything() {
 // let paris = new Store('Paris', 20,38, 2.3);
 // let lima = new Store('Lima', 2, 16, 4.6);
 
-var newStoreForm = document.getElementById('newStore');
-newStoreForm.addEventListener('submit', function createNewStore(newStoreSub){
-  // Stop page from reloading first:
-  newStoreSub.preventDefault();
-
-  let formTarget = newStoreSub.target;
-  // Grab all the values we need:
-  locationArr.push(new Store(formTarget.location.value, formTarget.maxCustomers.value, formTarget.minCustomers.value, formTarget.avgCookies.value));
-
-  console.log(locationArr);
-});
 
 locationArr.push(new Store('Seattle', 23, 65, 6.3));
 locationArr.push(new Store('Tokyo', 3, 24, 1.2));
@@ -247,6 +281,17 @@ locationArr.push(new Store('Paris', 20,38, 2.3));
 locationArr.push(new Store('Lima', 2, 16, 4.6));
 // locationArr.push(new Store('Portland', 20, 34, 4.6));
 
+// var newStoreForm = document.getElementById('newStore');
+// newStoreForm.addEventListener('submit', function createNewStore(newStoreSub){
+//   // Stop page from reloading first:
+//   newStoreSub.preventDefault();
+
+//   let formTarget = newStoreSub.target;
+//   // Grab all the values we need:
+//   locationArr.push(new Store(formTarget.location.value, formTarget.maxCustomers.value, formTarget.minCustomers.value, formTarget.avgCookies.value));
+
+//   console.log(locationArr);
+// });
 
 // seattleLocation.cookieTosserTableBody();
 // tokyoLocation.cookieTosserTableBody();
