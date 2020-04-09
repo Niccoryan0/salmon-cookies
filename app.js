@@ -9,17 +9,17 @@ var locationArr = [];
 // hourlyTotals will hold the total for each hour for all locations
 // Create the class Store which will take in location, min customers, max customers, and average cookies per day, will also include an openTime and closeTime just to play around with them, defaults set to 6 and 20 respectively
 function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, closeTime = 20) {
-  this.location = location,
-  this.minCustomers = minCustomers,
-  this.maxCustomers = maxCustomers,
-  this.avgCookies = avgCookies,
-  this.openTime = openTime,
-  this.closeTime = closeTime,
-  this.numCustArray = [],
-  this.salesArray = [],
-  this.salesTotal = 0,
-  this.cookieTossersNeeded = [],
-  this.busyHours = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6],
+  this.location = location;
+  this.minCustomers = minCustomers;
+  this.maxCustomers = maxCustomers;
+  this.avgCookies = avgCookies;
+  this.openTime = openTime;
+  this.closeTime = closeTime;
+  this.numCustArray = [];
+  this.salesArray = [];
+  this.salesTotal = 0;
+  this.cookieTossersNeeded = [];
+  this.busyHours = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
   this.hoursOpen = [];
   // Fill the empty hours open with times specific to the given open and close hour, currently makes no differnece since it uses defaults but just playing with it
   for (var i = openTime; i < closeTime; i++) {
@@ -31,7 +31,6 @@ function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, c
       this.hoursOpen.push((i-12) + 'pm');
     }
   }
-  locationArr.push(this);
 }
 
 
@@ -213,19 +212,48 @@ function renderTotalsToPage() {
   totalTRowEl.appendChild(totalTDataEl);
 }
 
+function renderEverything() {
+  for(var i = 0; i < locationArr.length; i++) {
+    locationArr[i].cookieTosserTableBody();
+  }
+  renderTotalsToPage();
+}
 
 
 // Create each store
-let seattleLocation = new Store('Seattle', 23, 65, 6.3);
-let tokyoLocation = new Store('Tokyo', 3, 24, 1.2);
-let dubaiLocation = new Store('Dubai', 11, 38, 3.7);
-let parisLocation = new Store('Paris', 20,38, 2.3);
-let limaLocation = new Store('Lima', 2, 16, 4.6);
+
+// let seattle = new Store('Seattle', 23, 65, 6.3);
+// let tokyo = new Store('Tokyo', 3, 24, 1.2);
+// let dubai = new Store('Dubai', 11, 38, 3.7);
+// let paris = new Store('Paris', 20,38, 2.3);
+// let lima = new Store('Lima', 2, 16, 4.6);
+
+var newStoreForm = document.getElementById('newStore');
+newStoreForm.addEventListener('submit', function createNewStore(newStoreSub){
+  // Stop page from reloading first:
+  newStoreSub.preventDefault();
+
+  let formTarget = newStoreSub.target;
+  // Grab all the values we need:
+  locationArr.push(new Store(formTarget.location.value, formTarget.maxCustomers.value, formTarget.minCustomers.value, formTarget.avgCookies.value));
+
+  console.log(locationArr);
+});
+
+locationArr.push(new Store('Seattle', 23, 65, 6.3));
+locationArr.push(new Store('Tokyo', 3, 24, 1.2));
+locationArr.push(new Store('Dubai', 11, 38, 3.7));
+locationArr.push(new Store('Paris', 20,38, 2.3));
+locationArr.push(new Store('Lima', 2, 16, 4.6));
+// locationArr.push(new Store('Portland', 20, 34, 4.6));
 
 
-seattleLocation.cookieTosserTableBody();
-tokyoLocation.cookieTosserTableBody();
-dubaiLocation.cookieTosserTableBody();
-parisLocation.cookieTosserTableBody();
-limaLocation.cookieTosserTableBody();
-renderTotalsToPage();
+// seattleLocation.cookieTosserTableBody();
+// tokyoLocation.cookieTosserTableBody();
+// dubaiLocation.cookieTosserTableBody();
+// parisLocation.cookieTosserTableBody();
+// limaLocation.cookieTosserTableBody();
+// renderTotalsToPage();
+renderEverything();
+
+
