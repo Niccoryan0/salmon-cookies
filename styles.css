@@ -36,6 +36,16 @@ p.info {
   /* color: rgb(54, 48, 48); */
 }
 
+.locationList{
+  float: left;
+  height: fit-content
+}
+
+.cookiePrices{
+  float: left;
+  right: 0;
+  float:right;
+}
 /* .highlights {
   font-family: Custom-Google;
   color: red;
@@ -57,14 +67,6 @@ p.text {
   margin-left: auto;
   margin-right: auto;
 }
-.locationList{
-  float: left;
-  height: fit-content
-}
-.cookiePrices{
-  float: left;
-  right: 0;
-  
 }  */
 /* index ^ */
 /* ============================================= */
@@ -105,8 +107,11 @@ table td:hover {
   background-color: rgba(255, 0, 0, 0.13);
 }
 
+/* TODO: Get those damn columns to highlight */
 
-/* THE FOLLOWING BLOCK WAS TAKEN AND ADAPTED (hopefully) FROM: 
+/* THE FOLLOWING BLOCK WAS TAKEN AND ADAPTED (hopefully) FROM: https://css-tricks.com/simple-css-row-column-highlighting/ */
+
+/*
 td:hover::after { 
   background-color: #ffa;
   content: '';  
