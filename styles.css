@@ -1,49 +1,93 @@
-.highlights {
+body {
+  background-color: rgba(185, 54, 2, 0.582)
+}
+/* Nav bar first: */
+nav {
+  background-color:red;
+  padding: 3px 13px;
+  width: fit-content
+}
+/* Then the header, currently meaning the salmon picture and main heading */
+header {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:50%;
+  text-align: center;
+}
+/* Only the salmon image */
+header > img {
+  width: 100%;
+}
+/* Make all my boxes of info have similar properties, including a background color, margin and padding */
+p.info, section.text, .locationList, .cookiePrices {
+  width: fit-content;
+  padding: 10px;
+  background-color: blanchedalmond;
+  margin: 5px;
+  color: rgb(54, 48, 48);
+
+}
+/* Center the first paragraph (hours), will also end up including the last paragraph (contact info) in this category */
+p.info {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /* color: rgb(54, 48, 48); */
+}
+
+.locationList{
+  float: left;
+  height: fit-content
+}
+
+.cookiePrices{
+  float: left;
+  right: 0;
+  float:right;
+}
+/* .highlights {
   font-family: Custom-Google;
   color: red;
 }
+
+
+.text {
+  font-family: Constan;
+  color: rgb(47, 39, 39);
+}
+
+table {
+  background-color:blanchedalmond;
+}
+
+
+p.text {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+}  */
+/* index ^ */
+/* ============================================= */
+/* sales v */
+
+main {
+  text-align: center;
+  margin: 5px;
+}
+
 #data {
   font-family: 'Gill Sans', Calibri,;
   color: blue;
   border-color: black;
 }
-.text {
-  font-family: Constan;
-  color: rgb(47, 39, 39);
-}
-table {
-  background-color:blanchedalmond;
-}
-h1 {
-  text-align: center;
-}
-.salmonPic {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-a {
-  background-color:red;
-  padding: 5px 10px 5px 10px;
-}
 
-/* index ^ */
-/* ============================================= */
-/* sales v */
-
-body {
-  background-color: rgba(185, 54, 2, 0.582)
-}
-main {
-  text-align: center;
-  margin: 5px;
-}
 table {
   border-collapse: collapse;
   width: 100%;
   margin: 20px 0px 20px 0px;
-
+  background-color: blanchedalmond;
 }
 
 table, th, td, tr {
@@ -53,3 +97,28 @@ table, th, td, tr {
 tr {
   height: 30px;
 }
+
+/* Make the table rows and columns highlight: */
+
+table tr:hover {
+  background-color: rgba(255, 0, 212, 0.13);
+}
+table td:hover {
+  background-color: rgba(255, 0, 0, 0.13);
+}
+
+/* TODO: Get those damn columns to highlight */
+
+/* THE FOLLOWING BLOCK WAS TAKEN AND ADAPTED (hopefully) FROM: https://css-tricks.com/simple-css-row-column-highlighting/ */
+
+/*
+td:hover::after { 
+  background-color: #ffa;
+  content: '';  
+  height: 10000px;    
+  left: 0;
+  position: absolute;  
+  top: -5000px;
+  width: 100%;
+  z-index: -1;        
+}  */
