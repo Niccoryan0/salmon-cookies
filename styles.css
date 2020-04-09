@@ -77,7 +77,7 @@ main {
   margin: 5px;
 }
 
-#data {
+#data, #dataT {
   font-family: 'Gill Sans', Calibri,;
   color: blue;
   border-color: black;
@@ -108,17 +108,4 @@ table td:hover {
 }
 
 /* TODO: Get those damn columns to highlight */
-
-/* THE FOLLOWING BLOCK WAS TAKEN AND ADAPTED (hopefully) FROM: https://css-tricks.com/simple-css-row-column-highlighting/ */
-
-/*
-td:hover::after { 
-  background-color: #ffa;
-  content: '';  
-  height: 10000px;    
-  left: 0;
-  position: absolute;  
-  top: -5000px;
-  width: 100%;
-  z-index: -1;        
-}  */
+/* Nicholas says try event listeners, don't mess around with that CSS you were doing before */
