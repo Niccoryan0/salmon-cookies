@@ -99,24 +99,14 @@ tr {
 /* Make the table rows and columns highlight: */
 
 table tr:hover {
-      background-color: rgba(255, 0, 212, 0.13);
+  background-color: rgba(255, 0, 212, 0.13);
 }
 table td:hover {
   background-color: rgba(255, 0, 0, 0.13);
 }
 
-/* td:hover::after,
-th:hover::after {
-  content: "";
-  position: absolute;
-  background-color: #ffa;
-  left: 0;
-  top: -5000px;
-  height: 10000px;
-  width: 100%;
-  z-index: -1;
-} */
 
+/* THE FOLLOWING BLOCK WAS TAKEN AND ADAPTED (hopefully) FROM: 
 td:hover::after { 
   background-color: #ffa;
   content: '';  
@@ -126,4 +116,4 @@ td:hover::after {
   top: -5000px;
   width: 100%;
   z-index: -1;        
-} 
+}  */

@@ -1,5 +1,12 @@
 'use strict';
 
+// salesTable is used in the functions outside the class
+var salesTable = document.getElementById('salesTable');
+// Each object is added to this array upon creation
+var locationArr = [];
+
+
+// hourlyTotals will hold the total for each hour for all locations
 // Create the class Store which will take in location, min customers, max customers, and average cookies per day, will also include an openTime and closeTime just to play around with them, defaults set to 6 and 20 respectively
 function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, closeTime = 20) {
   this.location = location,
@@ -24,6 +31,7 @@ function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, c
       this.hoursOpen.push((i-12) + 'pm');
     }
   }
+  locationArr.push(this);
 }
 
 
@@ -73,7 +81,6 @@ Store.prototype.renderHeader = function() {
 Store.prototype.renderBody = function() {
   // Ensure renderHeader is run first to start the table
   this.renderHeader();
-  var salesTable = document.getElementById('salesTable');
   if (!document.getElementById('7pm')){
     for (var i = 0; i < this.hoursOpen.length; i++) {
       var newTRowEl = document.createElement('tr');
@@ -167,7 +174,44 @@ Store.prototype.cookieTosserTableBody = function() {
   }
 };
 
-var hourlyTotals = 0;
+function cookiesPerHourAllCalc() {
+  var hourlyTotalsAll = new Array(locationArr[0].hoursOpen.length).fill(0);
+  var dailyTotalsAll = 0;
+  for (var i = 0; i < locationArr.length; i++){
+    for (var j = 0; j < locationArr[0].hoursOpen.length; j++) {
+      hourlyTotalsAll[j] += locationArr[i].salesArray[j];
+    }
+    dailyTotalsAll += locationArr[i].salesTotal;
+  }
+  return [hourlyTotalsAll,dailyTotalsAll];
+}
+
+function renderTotalsToPage() {
+  var calcResults = cookiesPerHourAllCalc();
+  // Render Header First:
+  var topRowLocation = document.getElementById('topRowSalesTable');
+  var totalsTHead = document.createElement('th');
+  totalsTHead.textContent = 'Total';
+  topRowLocation.appendChild(totalsTHead);
+
+  // Render Body:
+
+  for (var i = 0; i < locationArr[0].hoursOpen.length; i++) {
+    var currentTRowEl = document.getElementById(locationArr[0].hoursOpen[i]);
+    var newTDataEl = document.createElement('td');
+    newTDataEl.id = 'data';
+    newTDataEl.textContent = calcResults[0][i];
+    currentTRowEl.appendChild(newTDataEl);
+
+
+  }
+  var totalTRowEl = document.getElementById('total');
+  var totalTDataEl = document.createElement('td');
+  totalTDataEl.id = 'data';
+  totalTDataEl.textContent = calcResults[1];
+  totalTRowEl = document.getElementById('total');
+  totalTRowEl.appendChild(totalTDataEl);
+}
 
 
 
@@ -178,10 +222,10 @@ let dubaiLocation = new Store('Dubai', 11, 38, 3.7);
 let parisLocation = new Store('Paris', 20,38, 2.3);
 let limaLocation = new Store('Lima', 2, 16, 4.6);
 
-// Call the renderFooter function on each to create and populate the table, the renderFooter is the only one necessary as the functions call the other functions that are required first.
-// seattleLocation.renderFooter();
+
 seattleLocation.cookieTosserTableBody();
 tokyoLocation.cookieTosserTableBody();
 dubaiLocation.cookieTosserTableBody();
 parisLocation.cookieTosserTableBody();
 limaLocation.cookieTosserTableBody();
+renderTotalsToPage();
