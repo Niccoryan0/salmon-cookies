@@ -35,24 +35,28 @@ function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, c
 
 // First method: Get a random number of customers within the range of min and max for each store per hour and puts them in an array
 Store.prototype.customersPerHour = function () {
-  for (var i=0; i < this.hoursOpen.length; i++) {
-    var numCust = Math.random() * ((this.maxCustomers + 1) - this.minCustomers) * this.busyHours[i] + this.minCustomers;
-    this.numCustArray.push(numCust);
+  if (!this.numCustArray.length){
+    for (var i=0; i < this.hoursOpen.length; i++) {
+      var numCust = (Math.random() * ((this.maxCustomers + 1) - this.minCustomers) * this.busyHours[i]) + this.minCustomers;
+      this.numCustArray.push(numCust);
+    }
   }
 };
 
 // Second method: Call the customersPerHour function for every open hour of the day, multiply each number by the avg. number of cookies purchased, and create an array of cookie sales for the day and calculate the total
 Store.prototype.salesHourlyandTotal = function () {
   this.customersPerHour();
-  for (var i  = this.openTime; i < this.closeTime; i++) {
-    var cookiesThisHour = Math.round(this.numCustArray[i-6] * this.avgCookies);
-    // cookiesThisHour = Math.round(cookiesThisHour * this.busyHours[i-6]);
-    this.salesArray.push(cookiesThisHour);
-  }
-  if (this.salesTotal === 0){
+  if (!this.salesArray.length){
+
+    for (var i  = this.openTime; i < this.closeTime; i++) {
+      var cookiesThisHour = Math.round(this.numCustArray[i-6] * this.avgCookies);
+      // cookiesThisHour = Math.round(cookiesThisHour * this.busyHours[i-6]);
+      this.salesArray.push(cookiesThisHour);
+    }
     for (i = 0; i < this.salesArray.length; i++) {
       this.salesTotal += this.salesArray[i];
     }
+
   }
 };
 
@@ -267,24 +271,20 @@ newStoreForm.addEventListener('submit', function(newStoreSub){
   newStoreSub.preventDefault();
 
   let formTarget = newStoreSub.target;
+  let minCustomers = parseInt(formTarget.minCustomers.value);
+  let maxCustomers = parseInt(formTarget.maxCustomers.value);
+  let avgCookies = parseInt(formTarget.avgCookies.value);
   // Grab all the values we need:
-  locationArr.push(new Store(formTarget.location.value, formTarget.maxCustomers.value, formTarget.minCustomers.value, formTarget.avgCookies.value));
+  locationArr.push(new Store(formTarget.location.value,minCustomers, maxCustomers, avgCookies));
 
   var theUl = document.getElementById('salesTable');
   theUl.innerHTML = '';
 
   var theUlTossers = document.getElementById('tossersTable');
   theUlTossers.innerHTML = '';
-
-  for (var i = 0; i < locationArr.length; i++){
-    locationArr[i].salesTotal = 0;
-  }
-  // This function is processing the hours, creates the 6 to 7, I need to not make it do that if the array is already full
   renderEverything();
 });
 
 // TODO: Try a new listener that clears it itself
 // newStoreForm.addEventListener('submit', function)
-
-
 // Resetting a form or resetting in a form JS
