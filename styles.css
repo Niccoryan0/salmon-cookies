@@ -36,20 +36,24 @@ li {
   margin:0;
   padding:0;
 }
+
 /* Then the header, currently meaning the salmon picture and main heading */
 header {
   display: block;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   width:50%;
   text-align: center;
-  background-color:rgba(202, 134, 88, 0.63);
+  background-color:rgba(202, 134, 88, 0.87);
   padding: 10px 40px 4px 40px;
 }
+
 /* Only the salmon image */
 header > img {
   width: 100%;
 }
+
 /* Make all my boxes of info have similar properties, including a background color, margin and padding */
 p.info, section.text, .locationList, .cookiePrices {
   width: fit-content;
@@ -78,22 +82,17 @@ p.info {
   float:right;
 }
 
-/* .highlights {
+
+/* TODO: */
+.highlights {
   font-family: Custom-Google;
   color: red;
 }
 
-
-.text {
-  font-family: Constan;
-  color: rgb(47, 39, 39);
+.aboutP {
+  background-color: blanchedalmond;
 }
-
-
-
-
-
-}  */
+  
 /* index ^ */
 /* ============================================= */
 /* sales v */
@@ -106,6 +105,11 @@ main {
 form {
   background-color:blanchedalmond;
   line-height: 30px;
+  border-radius: 20px;
+  padding: 5px 20px 10px 20px;
+  color: blue;
+  width: fit-content;
+  margin: 20px auto;
 }
 
 input[type=text]:focus {
@@ -125,6 +129,13 @@ table {
   background-color: blanchedalmond;
 }
 
+.tableHead {
+  width: fit-content;
+  padding: 5px 15px;
+  margin: 0px auto;
+  background: blanchedalmond;
+}
+
 table, th, td, tr {
   border: 1px solid;
 }
@@ -135,12 +146,23 @@ tr {
 
 /* Make the table rows and columns highlight: */
 
-table tr:hover {
+table tr:hover, table td:hover {
   background-color: rgba(255, 0, 212, 0.13);
 }
-table td:hover {
+
+/* table td:hover {
   background-color: rgba(255, 0, 0, 0.13);
+} */
+
+figure{
+  height: 200px;
+  /* float: left; */
+  height: 400px;
 }
 
-/* TODO: Get those damn columns to highlight */
-/* Nicholas says try event listeners, don't mess around with that CSS you were doing before */
+figcaption {
+  background-color: blanchedalmond;
+  width: fit-content;
+  padding: 5px 15px;
+  margin: auto;
+}

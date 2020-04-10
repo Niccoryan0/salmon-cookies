@@ -65,7 +65,7 @@ Store.prototype.renderBody = function() {
   // Ensure renderHeader is run first to start the table
   this.salesHourlyandTotal();
   if (!document.getElementById('7pm')){
-    for (var i = 0; i < this.hoursOpen.length; i++) {
+    for (var i in this.hoursOpen) {
       var newTRowEl = document.createElement('tr');
       newTRowEl.id = this.hoursOpen[i];
       newTRowEl.textContent = this.hoursOpen[i];
@@ -77,6 +77,7 @@ Store.prototype.renderBody = function() {
     var currentTRowEl = document.getElementById(this.hoursOpen[i]);
     var newTDataEl = document.createElement('td');
     newTDataEl.id = 'data';
+    newTDataEl.className = this.location;
     newTDataEl.textContent = this.salesArray[i];
     currentTRowEl.appendChild(newTDataEl);
   }
@@ -265,17 +266,22 @@ locationArr.push(new Store('Lima', 2, 16, 4.6));
 renderEverything();
 
 
+function goToIndex(){
+  document.location.href = 'index.html';
+}
+
 var newStoreForm = document.getElementById('newStore');
 newStoreForm.addEventListener('submit', function(newStoreSub){
   // Stop page from reloading first:
   newStoreSub.preventDefault();
 
   let formTarget = newStoreSub.target;
+  let location = formTarget.location.value
   let minCustomers = parseInt(formTarget.minCustomers.value);
   let maxCustomers = parseInt(formTarget.maxCustomers.value);
   let avgCookies = parseInt(formTarget.avgCookies.value);
   // Grab all the values we need:
-  locationArr.push(new Store(formTarget.location.value,minCustomers, maxCustomers, avgCookies));
+  locationArr.push(new Store(location, minCustomers, maxCustomers, avgCookies));
 
   var theUl = document.getElementById('salesTable');
   theUl.innerHTML = '';
@@ -283,8 +289,37 @@ newStoreForm.addEventListener('submit', function(newStoreSub){
   var theUlTossers = document.getElementById('tossersTable');
   theUlTossers.innerHTML = '';
   renderEverything();
+
+  var homeLocationList = document.getElementById('locationsList');
+  var newLocation = document.createElement('li');
+  newLocation.textContent = location;
+  homeLocationList.appendChild(newLocation);
 });
 
 // TODO: Try a new listener that clears it itself
 // newStoreForm.addEventListener('submit', function)
 // Resetting a form or resetting in a form JS
+
+
+// THE CONCEPTS FOR THIS CODE WERE TAKEN FROM AN ANSWER BY USER 'WuerfelDev' at: https://stackoverflow.com/questions/12786810/hover-on-element-and-highlight-all-elements-with-the-same-class
+
+function hoverColumns(locationName, normColor='blanchedalmond'){
+  var currentLocation=document.getElementsByClassName(locationName);
+
+  for(var i=0;i<currentLocation.length;i++){
+
+    currentLocation[i].onmouseover = function(){
+      for(var k=0;k<currentLocation.length;k++){
+        currentLocation[k].style.backgroundColor='orange';//colorover;
+      }
+    };
+
+    currentLocation[i].onmouseout = function(){
+      for(var k=0;k<currentLocation.length;k++){
+        currentLocation[k].style.backgroundColor=normColor;
+      }
+    };
+  }
+}
+
+hoverColumns(locationArr[0].location);
