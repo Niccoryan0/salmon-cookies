@@ -6,19 +6,40 @@
   </head>
   <body>
     <nav>
-      <a href="index.html" target="_blank">Home</a>
+      <img src="images/frosted-cookie.jpg" alt="Very appetizing looking salmon cookie" class='cookiePic'>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
     </nav>
     <main id='mainsales'>
+      <section>
+        <form id="newStore">
+          <fieldset>
+            <legend>Add a new store!</legend>
+            <ul>
+              <li><label for="location">Location</label>
+              <input type="text" name="location"></li>
+              
+              <li><label for="minCustomers">Min Customers</label>
+              <input type="text" name="minCustomers"></li>
 
+              <li><label for="maxCustomers">Max Customers</label>
+              <input type="text" name="maxCustomers"></li>
+
+              <li><label for="avgCookies">Average Purchase Size</label>
+              <input type="text" name="avgCookies"></li>
+          </ul>
+            <input type="submit">
+          </fieldset>
+        </form>
+      </section>
       <table id='salesTable'>
-        <span class='tableHead'>Cookie Sales by Store</span>
-        <tr id='topRowSalesTable'></tr>
+        Cookie Sales by Store
       </table>
 
       <table id='tossersTable'>
         Cookie Tossers Needed
-        <tr id='topRowTossersTable'>
-        </tr>
       </table>
 
     </main>

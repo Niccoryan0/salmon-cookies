@@ -1,11 +1,40 @@
 body {
-  background-color: rgba(185, 54, 2, 0.582)
+  background-color: rgba(42, 91, 136, 0.582);
+  background-image: url('images/chinook-background-70pOpac.png');
+  background-size: 200px;
+  
 }
 /* Nav bar first: */
-nav {
+nav > a {
   background-color:red;
   padding: 3px 13px;
   width: fit-content
+}
+
+nav {
+  height: 100px;
+  background-color: gray;
+}
+
+nav img {
+  float:left;
+  border-radius: 50%;
+  float: left;
+  shape-outside: circle;
+  height: 100px;
+}
+nav ul li {
+  float:left;
+  margin-top: 42px;
+  margin-left: 60px;
+  font-size: large;
+  font-weight: bold;
+}
+
+li {
+  list-style-type: none;
+  margin:0;
+  padding:0;
 }
 /* Then the header, currently meaning the salmon picture and main heading */
 header {
@@ -14,6 +43,8 @@ header {
   margin-right: auto;
   width:50%;
   text-align: center;
+  background-color:rgba(202, 134, 88, 0.63);
+  padding: 10px 40px 4px 40px;
 }
 /* Only the salmon image */
 header > img {
@@ -46,6 +77,7 @@ p.info {
   right: 0;
   float:right;
 }
+
 /* .highlights {
   font-family: Custom-Google;
   color: red;
@@ -57,16 +89,10 @@ p.info {
   color: rgb(47, 39, 39);
 }
 
-table {
-  background-color:blanchedalmond;
-}
 
 
-p.text {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
+
+
 }  */
 /* index ^ */
 /* ============================================= */
@@ -77,7 +103,16 @@ main {
   margin: 5px;
 }
 
-#data {
+form {
+  background-color:blanchedalmond;
+  line-height: 30px;
+}
+
+input[type=text]:focus {
+  border: 2px inset rgb(0, 17, 255);
+}
+
+#data, #dataT {
   font-family: 'Gill Sans', Calibri,;
   color: blue;
   border-color: black;
@@ -108,17 +143,4 @@ table td:hover {
 }
 
 /* TODO: Get those damn columns to highlight */
-
-/* THE FOLLOWING BLOCK WAS TAKEN AND ADAPTED (hopefully) FROM: https://css-tricks.com/simple-css-row-column-highlighting/ */
-
-/*
-td:hover::after { 
-  background-color: #ffa;
-  content: '';  
-  height: 10000px;    
-  left: 0;
-  position: absolute;  
-  top: -5000px;
-  width: 100%;
-  z-index: -1;        
-}  */
+/* Nicholas says try event listeners, don't mess around with that CSS you were doing before */

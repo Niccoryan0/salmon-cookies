@@ -2,24 +2,23 @@
 
 // salesTable is used in the functions outside the class
 var salesTable = document.getElementById('salesTable');
+var tossersTable = document.getElementById('tossersTable');
 // Each object is added to this array upon creation
 var locationArr = [];
 
-
-// hourlyTotals will hold the total for each hour for all locations
 // Create the class Store which will take in location, min customers, max customers, and average cookies per day, will also include an openTime and closeTime just to play around with them, defaults set to 6 and 20 respectively
 function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, closeTime = 20) {
-  this.location = location,
-  this.minCustomers = minCustomers,
-  this.maxCustomers = maxCustomers,
-  this.avgCookies = avgCookies,
-  this.openTime = openTime,
-  this.closeTime = closeTime,
-  this.numCustArray = [],
-  this.salesArray = [],
-  this.salesTotal = 0,
-  this.cookieTossersNeeded = [],
-  this.busyHours = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6],
+  this.location = location;
+  this.minCustomers = minCustomers;
+  this.maxCustomers = maxCustomers;
+  this.avgCookies = avgCookies;
+  this.openTime = openTime;
+  this.closeTime = closeTime;
+  this.numCustArray = [];
+  this.salesArray = [];
+  this.salesTotal = 0;
+  this.cookieTossersNeeded = [];
+  this.busyHours = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
   this.hoursOpen = [];
   // Fill the empty hours open with times specific to the given open and close hour, currently makes no differnece since it uses defaults but just playing with it
   for (var i = openTime; i < closeTime; i++) {
@@ -31,56 +30,40 @@ function Store(location, minCustomers, maxCustomers, avgCookies, openTime = 6, c
       this.hoursOpen.push((i-12) + 'pm');
     }
   }
-  locationArr.push(this);
 }
 
 
 // First method: Get a random number of customers within the range of min and max for each store per hour and puts them in an array
 Store.prototype.customersPerHour = function () {
-  for (var i=0; i < this.hoursOpen.length; i++) {
-    var numCust = Math.random() * ((this.maxCustomers + 1) - this.minCustomers) * this.busyHours[i] + this.minCustomers;
-    this.numCustArray.push(numCust);
+  if (!this.numCustArray.length){
+    for (var i=0; i < this.hoursOpen.length; i++) {
+      var numCust = (Math.random() * ((this.maxCustomers + 1) - this.minCustomers) * this.busyHours[i]) + this.minCustomers;
+      this.numCustArray.push(numCust);
+    }
   }
 };
 
 // Second method: Call the customersPerHour function for every open hour of the day, multiply each number by the avg. number of cookies purchased, and create an array of cookie sales for the day and calculate the total
 Store.prototype.salesHourlyandTotal = function () {
   this.customersPerHour();
-  for (var i  = this.openTime; i < this.closeTime; i++) {
-    var cookiesThisHour = Math.round(this.numCustArray[i-6] * this.avgCookies);
-    // cookiesThisHour = Math.round(cookiesThisHour * this.busyHours[i-6]);
-    this.salesArray.push(cookiesThisHour);
-  }
-  for (i = 0; i < this.salesArray.length; i++) {
-    this.salesTotal = this.salesTotal + this.salesArray[i];
-  }
-};
+  if (!this.salesArray.length){
 
-// Renders the header for each store first, adding it as a new column
-Store.prototype.renderHeader = function() {
-  // Ensure salesHourlyandTotal runs before this
-  this.salesHourlyandTotal();
+    for (var i  = this.openTime; i < this.closeTime; i++) {
+      var cookiesThisHour = Math.round(this.numCustArray[i-6] * this.avgCookies);
+      // cookiesThisHour = Math.round(cookiesThisHour * this.busyHours[i-6]);
+      this.salesArray.push(cookiesThisHour);
+    }
+    for (i = 0; i < this.salesArray.length; i++) {
+      this.salesTotal += this.salesArray[i];
+    }
 
-  // Grab a few necessary elements from the HTML to start the table
-  var topRowLocation = document.getElementById('topRowSalesTable');
-  if (!document.getElementById('emptySpace')){
-    var emptySpaceTHead = document.createElement('th');
-    emptySpaceTHead.id = 'emptySpace';
-    emptySpaceTHead.textContent = '';
-    topRowLocation.appendChild(emptySpaceTHead);
   }
-  // Create a new heading for each column with the store's location
-  var newTHeadEl = document.createElement('th');
-  newTHeadEl.textContent = this.location;
-  topRowLocation.appendChild(newTHeadEl);
-
-  // Only generate time column if it doesn't already exist (Don't want to create the whole table every time)
 };
 
 // Renders the first column of the page, the times, and takes the array created by salesHourlyandTotal function, and populates the column with the values from it
 Store.prototype.renderBody = function() {
   // Ensure renderHeader is run first to start the table
-  this.renderHeader();
+  this.salesHourlyandTotal();
   if (!document.getElementById('7pm')){
     for (var i = 0; i < this.hoursOpen.length; i++) {
       var newTRowEl = document.createElement('tr');
@@ -103,8 +86,6 @@ Store.prototype.renderBody = function() {
 Store.prototype.renderFooter = function() {
   // Ensure renderBody is run first so that we can attach footer at the bottom
   this.renderBody();
-  // This runs fine without the following line, but the linter doesn't like line 86 referring to the salesTable when it's not defined here
-  var salesTable = document.getElementById('salesTable');
   // Add a total row on the end if it doesn't exist already
   if (!document.getElementById('total')){
     var totalTRowEl = document.createElement('tr');
@@ -133,27 +114,9 @@ Store.prototype.cookieTosserCalc = function () {
   }
 };
 
-// Displays header for cookie tosser table on the sales page
-Store.prototype.cookieTosserTableHeader = function() {
-  this.cookieTosserCalc();
-  // Grab a few necessary elements from the HTML to start the table
-  var topRowLocation = document.getElementById('topRowTossersTable');
-  if (!document.getElementById('emptySpace2')){
-    var emptySpaceTHead = document.createElement('th');
-    emptySpaceTHead.id = 'emptySpace2';
-    emptySpaceTHead.textContent = '';
-    topRowLocation.appendChild(emptySpaceTHead);
-  }
-
-  // Create a new heading for each column with the store's location
-  var newTHeadEl = document.createElement('th');
-  newTHeadEl.textContent = this.location;
-  topRowLocation.appendChild(newTHeadEl);
-};
-
 // Displays body for cookie tosser table on the sales page
 Store.prototype.cookieTosserTableBody = function() {
-  this.cookieTosserTableHeader();
+  this.cookieTosserCalc();
   var tossersTable = document.getElementById('tossersTable');
   if (!document.getElementById('time7')){
     for (var i = 0; i < this.hoursOpen.length; i++) {
@@ -174,6 +137,54 @@ Store.prototype.cookieTosserTableBody = function() {
   }
 };
 
+function renderHeaders() {
+  //=================SALES TABLE HEADER====================
+
+  // Grab a few necessary elements from the HTML to start the table
+  var topRowLocation = document.createElement('tr');
+  salesTable.appendChild(topRowLocation);
+
+  var emptySpaceTHead = document.createElement('th');
+  emptySpaceTHead.id = 'emptySpace';
+  emptySpaceTHead.textContent = '';
+  topRowLocation.appendChild(emptySpaceTHead);
+
+  // Create a new heading for each column with the store's location
+  for(var i = 0; i < locationArr.length; i++){
+    var newTHeadEl = document.createElement('th');
+    newTHeadEl.textContent = locationArr[i].location;
+    topRowLocation.appendChild(newTHeadEl);
+  }
+
+  var totalsTHead = document.createElement('th');
+  totalsTHead.textContent = 'Total';
+  topRowLocation.appendChild(totalsTHead);
+
+  //===================TOSSERS TABLE HEADER===================
+  // Grab a few necessary elements from the HTML to start the table
+  var topRowLocationTossers = document.createElement('tr');
+  tossersTable.appendChild(topRowLocationTossers);
+
+  var emptySpaceTHeadTossers = document.createElement('th');
+  emptySpaceTHeadTossers.id = 'emptySpace2';
+  emptySpaceTHeadTossers.textContent = '';
+  topRowLocationTossers.appendChild(emptySpaceTHeadTossers);
+
+
+  // Create a new heading for each column with the store's location
+  for(i = 0; i < locationArr.length; i++){
+    var newTHeadElTossers = document.createElement('th');
+    newTHeadElTossers.textContent = locationArr[i].location;
+    topRowLocationTossers.appendChild(newTHeadElTossers);
+  }
+
+  var totalsTHeadTossers = document.createElement('th');
+  totalsTHeadTossers.textContent = 'Total';
+  topRowLocationTossers.appendChild(totalsTHeadTossers);
+
+}
+
+
 function cookiesPerHourAllCalc() {
   var hourlyTotalsAll = new Array(locationArr[0].hoursOpen.length).fill(0);
   var dailyTotalsAll = 0;
@@ -186,46 +197,94 @@ function cookiesPerHourAllCalc() {
   return [hourlyTotalsAll,dailyTotalsAll];
 }
 
-function renderTotalsToPage() {
-  var calcResults = cookiesPerHourAllCalc();
-  // Render Header First:
-  var topRowLocation = document.getElementById('topRowSalesTable');
-  var totalsTHead = document.createElement('th');
-  totalsTHead.textContent = 'Total';
-  topRowLocation.appendChild(totalsTHead);
+function cookieTossersPerHourAllCalc() {
+  var hourlyCTTotalsAll = new Array(locationArr[0].hoursOpen.length).fill(0);
+  for (var i = 0; i < locationArr.length; i++){
+    for (var j = 0; j < locationArr[0].hoursOpen.length; j++) {
+      hourlyCTTotalsAll[j] += locationArr[i].cookieTossersNeeded[j];
+    }
+  }
+  return [hourlyCTTotalsAll];
+}
 
+function renderTotalsToPage() {
+  // ===============COOKIE SALES TABLE=================
+
+  var calcResults = cookiesPerHourAllCalc();
   // Render Body:
 
   for (var i = 0; i < locationArr[0].hoursOpen.length; i++) {
     var currentTRowEl = document.getElementById(locationArr[0].hoursOpen[i]);
     var newTDataEl = document.createElement('td');
-    newTDataEl.id = 'data';
+    newTDataEl.id = 'dataT';
     newTDataEl.textContent = calcResults[0][i];
     currentTRowEl.appendChild(newTDataEl);
 
 
   }
+
+  // Render daily total:
   var totalTRowEl = document.getElementById('total');
   var totalTDataEl = document.createElement('td');
-  totalTDataEl.id = 'data';
+  totalTDataEl.id = 'dataT';
   totalTDataEl.textContent = calcResults[1];
   totalTRowEl = document.getElementById('total');
   totalTRowEl.appendChild(totalTDataEl);
+
+  // =========================================================
+
+  // ===================TOSSERS TABLE=========================
+
+  var calcResultsTossers = cookieTossersPerHourAllCalc();
+
+  // Render Body:
+  for (i = 0; i < locationArr[0].hoursOpen.length; i++) {
+    var currentTRowElTossers = document.getElementById('time' + i);
+    var newTDataElTossers = document.createElement('td');
+    newTDataElTossers.id = 'data';
+    newTDataElTossers.textContent = calcResultsTossers[0][i];
+    currentTRowElTossers.appendChild(newTDataElTossers);
+  }
 }
 
+// Function that loops through the locations array and runs all the methods for them, then runs renderTotals to Page to get the final totals column
+function renderEverything() {
+  renderHeaders();
+  for(var i = 0; i < locationArr.length; i++) {
+    locationArr[i].cookieTosserTableBody();
+  }
+  renderTotalsToPage();
+}
+
+locationArr.push(new Store('Seattle', 23, 65, 6.3));
+locationArr.push(new Store('Tokyo', 3, 24, 1.2));
+locationArr.push(new Store('Dubai', 11, 38, 3.7));
+locationArr.push(new Store('Paris', 20,38, 2.3));
+locationArr.push(new Store('Lima', 2, 16, 4.6));
+
+renderEverything();
 
 
-// Create each store
-let seattleLocation = new Store('Seattle', 23, 65, 6.3);
-let tokyoLocation = new Store('Tokyo', 3, 24, 1.2);
-let dubaiLocation = new Store('Dubai', 11, 38, 3.7);
-let parisLocation = new Store('Paris', 20,38, 2.3);
-let limaLocation = new Store('Lima', 2, 16, 4.6);
+var newStoreForm = document.getElementById('newStore');
+newStoreForm.addEventListener('submit', function(newStoreSub){
+  // Stop page from reloading first:
+  newStoreSub.preventDefault();
 
+  let formTarget = newStoreSub.target;
+  let minCustomers = parseInt(formTarget.minCustomers.value);
+  let maxCustomers = parseInt(formTarget.maxCustomers.value);
+  let avgCookies = parseInt(formTarget.avgCookies.value);
+  // Grab all the values we need:
+  locationArr.push(new Store(formTarget.location.value,minCustomers, maxCustomers, avgCookies));
 
-seattleLocation.cookieTosserTableBody();
-tokyoLocation.cookieTosserTableBody();
-dubaiLocation.cookieTosserTableBody();
-parisLocation.cookieTosserTableBody();
-limaLocation.cookieTosserTableBody();
-renderTotalsToPage();
+  var theUl = document.getElementById('salesTable');
+  theUl.innerHTML = '';
+
+  var theUlTossers = document.getElementById('tossersTable');
+  theUlTossers.innerHTML = '';
+  renderEverything();
+});
+
+// TODO: Try a new listener that clears it itself
+// newStoreForm.addEventListener('submit', function)
+// Resetting a form or resetting in a form JS
