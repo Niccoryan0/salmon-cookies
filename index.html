@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>Salmon Cookies Homepage</title>
+  <link rel='stylesheet' href='reset.css'>
   <link rel='stylesheet' href='styles.css'>
-
-</head>
+  <link href="https://fonts.googleapis.com/css2?family=Girassol&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet"></head>
 <body class='homepage'>
   <!-- TODO: Add in the the new images from lab 08a. Style page nicely. Add more info? -->
   <nav>
@@ -12,12 +12,14 @@
     <ul>
       <li><a href="sales.html">Sales</a></li>
       <li><a href="about.html">About</a></li>
-  </ul>
+    </ul>
+    <img src="images/frosted-cookie.jpg" alt="Very appetizing looking salmon cookie" class='cookiePic' style='float:right'>
+    <ul>
   </nav>
   <header>
     <img src="images/salmon.png" alt="Picture of a Salmon" class = 'salmonPic'>
 
-    <h1>Pat's Old-fashioned Salmon Cookies!</h1>
+    <h1 class='highlights'>Pat's Old-fashioned Salmon Cookies!</h1>
   </header>
 
   
@@ -25,7 +27,7 @@
   
   
   <section class='locationList'>
-    <p>Store Locations<p>
+    <p class='listhead'>Store Locations<p>
       <ul id='locationsList'>
         <li>Seattle</li>
         <li>Tokyo</li>
@@ -36,12 +38,13 @@
     </section>
     
     <section class='cookiePrices'>
-      <p>Cookie Prices<p>
+      <p class='listhead'>Cookie Prices<p>
         <ul>
           <li>1 Cookie : $2.00</li>
           <li>5 Cookies: $8.00</li>
           <li>10 Cookies: $12.00</li>
         </ul>
+        <button class='cookiePurchase'>Purchase Cookies!</button>
       </section>
       
       <p class='info'>Contact us:<br>Email: Patsalmoncookies@gmail.com<br>Phone: 1-(800)-867-5309</p>

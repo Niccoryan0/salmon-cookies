@@ -62,7 +62,6 @@ Store.prototype.salesHourlyandTotal = function () {
 
 // Renders the first column of the page, the times, and takes the array created by salesHourlyandTotal function, and populates the column with the values from it
 Store.prototype.renderBody = function() {
-  // Ensure renderHeader is run first to start the table
   this.salesHourlyandTotal();
   if (!document.getElementById('7pm')){
     for (var i in this.hoursOpen) {
@@ -99,6 +98,7 @@ Store.prototype.renderFooter = function() {
   var totalTDataEl = document.createElement('td');
   totalTDataEl.textContent = this.salesTotal;
   totalTDataEl.id = 'data';
+  totalTDataEl.className = this.location;
   totalTRowEl = document.getElementById('total');
   totalTRowEl.appendChild(totalTDataEl);
 };
@@ -154,6 +154,7 @@ function renderHeaders() {
   for(var i = 0; i < locationArr.length; i++){
     var newTHeadEl = document.createElement('th');
     newTHeadEl.textContent = locationArr[i].location;
+    newTHeadEl.className = locationArr[i].location;
     topRowLocation.appendChild(newTHeadEl);
   }
 
@@ -266,9 +267,6 @@ locationArr.push(new Store('Lima', 2, 16, 4.6));
 renderEverything();
 
 
-function goToIndex(){
-  document.location.href = 'index.html';
-}
 
 var newStoreForm = document.getElementById('newStore');
 newStoreForm.addEventListener('submit', function(newStoreSub){
@@ -276,7 +274,7 @@ newStoreForm.addEventListener('submit', function(newStoreSub){
   newStoreSub.preventDefault();
 
   let formTarget = newStoreSub.target;
-  let location = formTarget.location.value
+  let location = formTarget.location.value;
   let minCustomers = parseInt(formTarget.minCustomers.value);
   let maxCustomers = parseInt(formTarget.maxCustomers.value);
   let avgCookies = parseInt(formTarget.avgCookies.value);
@@ -290,36 +288,37 @@ newStoreForm.addEventListener('submit', function(newStoreSub){
   theUlTossers.innerHTML = '';
   renderEverything();
 
-  var homeLocationList = document.getElementById('locationsList');
-  var newLocation = document.createElement('li');
-  newLocation.textContent = location;
-  homeLocationList.appendChild(newLocation);
+
 });
 
-// TODO: Try a new listener that clears it itself
+// TODO: CLEARING THE FORM : Try a new listener that clears it itself
 // newStoreForm.addEventListener('submit', function)
-// Resetting a form or resetting in a form JS
+// Google resetting a form or resetting in a form JS
 
 
-// THE CONCEPTS FOR THIS CODE WERE TAKEN FROM AN ANSWER BY USER 'WuerfelDev' at: https://stackoverflow.com/questions/12786810/hover-on-element-and-highlight-all-elements-with-the-same-class
+// THE CORE OF THIS CODE WAS INSPIRED BY AN ANSWER BY USER 'WuerfelDev' at: https://stackoverflow.com/questions/12786810/hover-on-element-and-highlight-all-elements-with-the-same-class
 
-function hoverColumns(locationName, normColor='blanchedalmond'){
+// CHANGE THE CLASS NOT THE COLOR
+function hoverColumns(locationName){
   var currentLocation=document.getElementsByClassName(locationName);
 
   for(var i=0;i<currentLocation.length;i++){
 
     currentLocation[i].onmouseover = function(){
       for(var k=0;k<currentLocation.length;k++){
-        currentLocation[k].style.backgroundColor='orange';//colorover;
+        currentLocation[k].className = 'currentRow';
       }
     };
 
     currentLocation[i].onmouseout = function(){
       for(var k=0;k<currentLocation.length;k++){
-        currentLocation[k].style.backgroundColor=normColor;
+        currentLocation[k].className = 'data';
+
       }
     };
   }
 }
 
-hoverColumns(locationArr[0].location);
+for(var i in locationArr) {
+  hoverColumns(locationArr[i].location);
+}
