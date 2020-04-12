@@ -14,6 +14,7 @@ body {
   font-family:  'Share Tech Mono', monospace;
   
 }
+
 /* Nav bar first: */
 nav > a {
   background-color:red;
@@ -35,7 +36,7 @@ nav img {
 }
 
 nav > ul {
-  margin-left: 40%;
+  margin-left: 42%;
 }
 
 nav ul li {
@@ -64,6 +65,11 @@ a:link, a:visited {
   list-style-type: none;
 }
 
+input[type=submit] {
+  background-color:rgb(202, 134, 88);
+  padding: 5px 15px;
+  font-size: 16px;
+}
 
 header {
   display: block;
@@ -93,20 +99,40 @@ p.info {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  /* color: rgb(54, 48, 48); */
+  border-radius: 10px;
+  
+  
 }
 
 .locationList{
   float: left;
-  height: fit-content
+  height: fit-content;
 }
 
 .cookiePrices{
   float: left;
   right: 0;
   float:right;
+  height: fit-content;
+
 }
 
+.locationList, .cookiePrices {
+  border-radius: 10px;
+}
+
+.homelists {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  height: 280px;
+}
+
+.homelists > img{
+  /* float:right; */
+  height: 250px;
+  width: 250px;
+}
 
 /* TODO: */
 .highlights {
@@ -216,14 +242,13 @@ figcaption {
 .aboutmain {
   display: flex;
   flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: 5%; */
 }
 .aboutmain > p {
   padding: 10px;
   border-radius: 8px;
   height: fit-content;
-  width:40%;
+  width:auto;
   margin: 20px 10px;
   height: 400px;
   overflow: auto;
