@@ -2,22 +2,29 @@
 <html>
   <head>
     <title>Salmon Cookies Sales Page</title>
+    <link rel='stylesheet' href='reset.css'>
     <link rel='stylesheet' href='styles.css'>
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Girassol&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">  </head>
   <body>
     <nav>
       <img src="images/frosted-cookie.jpg" alt="Very appetizing looking salmon cookie" class='cookiePic'>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-    </ul>
+      </ul>
+      <img src="images/frosted-cookie.jpg" alt="Very appetizing looking salmon cookie" class='cookiePic' style='float:right'>
     </nav>
-    <main id='mainsales'>
+    <header>
+      <img src="images/salmon.png" alt="Picture of a Salmon" class = 'salmonPic'>
+  
+      <h1 class='highlights'>Sales Information!</h1>
+    </header>
+    <main id='mainsales'> 
       <section>
         <form id="newStore">
           <fieldset>
             <legend>Add a new store!</legend>
-            <ul>
+            <ul class='forminputs'>
               <li><label for="location">Location</label>
               <input type="text" name="location"></li>
               
@@ -34,13 +41,11 @@
           </fieldset>
         </form>
       </section>
-      <table id='salesTable'>
-        Cookie Sales by Store
-      </table>
+      <p class='tableHead'>Cookie Sales by Store</p>
+      <table id='salesTable'></table>
 
-      <table id='tossersTable'>
-        Cookie Tossers Needed
-      </table>
+      <p class='tableHead'>Cookie Tossers Needed</p>
+      <table id='tossersTable'></table>
 
     </main>
     <script src="app.js"> </script>

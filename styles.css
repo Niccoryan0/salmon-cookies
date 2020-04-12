@@ -1,9 +1,20 @@
+* {
+  /* box-sizing: border-box;
+  outline: 1px dotted red; */
+}
+
+html {
+  margin: 10px 30px;
+}
 body {
   background-color: rgba(42, 91, 136, 0.582);
   background-image: url('images/chinook-background-70pOpac.png');
   background-size: 200px;
+  line-height: 20px;
+  font-family:  'Share Tech Mono', monospace;
   
 }
+
 /* Nav bar first: */
 nav > a {
   background-color:red;
@@ -13,7 +24,7 @@ nav > a {
 
 nav {
   height: 100px;
-  background-color: gray;
+  background-color:rgba(202, 134, 88, 0.87);
 }
 
 nav img {
@@ -23,33 +34,57 @@ nav img {
   shape-outside: circle;
   height: 100px;
 }
+
+nav > ul {
+  margin-left: 42%;
+}
+
 nav ul li {
   float:left;
-  margin-top: 42px;
-  margin-left: 60px;
-  font-size: large;
+  margin: 30px 20px;
+  font-size: 20px;
   font-weight: bold;
 }
 
-li {
-  list-style-type: none;
-  margin:0;
-  padding:0;
+main li {
+  margin-left:20px;
+  list-style-type: square;
+  text-decoration: none;
 }
-/* Then the header, currently meaning the salmon picture and main heading */
+
+a:link, a:visited {
+  background-color: rgba(42, 91, 136, 0.65);
+  color: rgb(165, 150, 150);
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.forminputs > li {
+  list-style-type: none;
+}
+
+input[type=submit] {
+  background-color:rgb(202, 134, 88);
+  padding: 5px 15px;
+  font-size: 16px;
+}
+
 header {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width:50%;
+  margin: 20px auto;
+  width: 500px;
   text-align: center;
-  background-color:rgba(202, 134, 88, 0.63);
+  background-color:rgba(202, 134, 88, 0.87);
   padding: 10px 40px 4px 40px;
 }
+
 /* Only the salmon image */
 header > img {
   width: 100%;
 }
+
 /* Make all my boxes of info have similar properties, including a background color, margin and padding */
 p.info, section.text, .locationList, .cookiePrices {
   width: fit-content;
@@ -64,36 +99,58 @@ p.info {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  /* color: rgb(54, 48, 48); */
+  border-radius: 10px;
+  
+  
 }
 
 .locationList{
   float: left;
-  height: fit-content
+  height: fit-content;
 }
 
 .cookiePrices{
   float: left;
   right: 0;
   float:right;
+  height: fit-content;
+
 }
 
-/* .highlights {
-  font-family: Custom-Google;
-  color: red;
+.locationList, .cookiePrices {
+  border-radius: 10px;
 }
 
-
-.text {
-  font-family: Constan;
-  color: rgb(47, 39, 39);
+.homelists {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  height: 280px;
 }
 
+.homelists > img{
+  /* float:right; */
+  height: 250px;
+  width: 250px;
+}
 
+/* TODO: */
+.highlights {
+  font-family: 'Girassol', cursive;
+  color: rgb(37, 34, 34);
+  font-size: 30px;
+  text-align: center;
+}
 
+.aboutP {
+  background-color: blanchedalmond;
+}
+  
 
-
-}  */
+.salesHead{
+  height: 100px;
+  text-align: center;
+}
 /* index ^ */
 /* ============================================= */
 /* sales v */
@@ -106,13 +163,18 @@ main {
 form {
   background-color:blanchedalmond;
   line-height: 30px;
+  border-radius: 20px;
+  padding: 5px 20px 10px 20px;
+  color: blue;
+  width: fit-content;
+  margin: 20px auto;
 }
 
 input[type=text]:focus {
   border: 2px inset rgb(0, 17, 255);
 }
 
-#data, #dataT {
+#data, #dataT, .dataClass {
   font-family: 'Gill Sans', Calibri,;
   color: blue;
   border-color: black;
@@ -125,6 +187,22 @@ table {
   background-color: blanchedalmond;
 }
 
+.tableHead {
+  width: fit-content;
+  padding: 5px 15px;
+  margin: 0px auto;
+  background: blanchedalmond;
+  border-radius: 9px;
+  font-family: 'VT323', monospace;
+  font-size: 30px;
+}
+
+.listhead {
+  font-family: 'VT323', monospace;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
 table, th, td, tr {
   border: 1px solid;
 }
@@ -135,12 +213,57 @@ tr {
 
 /* Make the table rows and columns highlight: */
 
-table tr:hover {
+table tr:hover, table td:hover {
   background-color: rgba(255, 0, 212, 0.13);
 }
-table td:hover {
+
+/* table td:hover {
   background-color: rgba(255, 0, 0, 0.13);
+} */
+figure > img {
+  /* float: left; */
+  height: 300px;
+  width: 300px;
+  margin-top: 40px;
 }
 
-/* TODO: Get those damn columns to highlight */
-/* Nicholas says try event listeners, don't mess around with that CSS you were doing before */
+figcaption {
+  background-color: blanchedalmond;
+  width: 200px;
+  padding: 5px 15px;
+  margin: 30px auto;
+  border-radius: 8px;
+}
+
+.currentRow {
+  background-color: rgba(red, rgba(24, 207, 24, 0.459), blue, alpha);
+}
+
+.aboutmain {
+  display: flex;
+  flex-direction: row;
+  /* margin-left: 5%; */
+}
+.aboutmain > p {
+  padding: 10px;
+  border-radius: 8px;
+  height: fit-content;
+  width:auto;
+  margin: 20px 10px;
+  height: 400px;
+  overflow: auto;
+}
+
+.cookiePurchase {
+  border: none;
+  margin: 6px 10px;
+  padding: 5px 10px;
+  background-color:rgba(202, 134, 88, 0.87);
+  color: rgb(70, 70, 70);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.cookiePurchase:hover{
+  background-color: rgba(125, 125, 255, 0.527);
+}
