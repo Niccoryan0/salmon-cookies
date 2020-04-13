@@ -172,7 +172,6 @@ function renderHeaders() {
   emptySpaceTHeadTossers.textContent = '';
   topRowLocationTossers.appendChild(emptySpaceTHeadTossers);
 
-
   // Create a new heading for each column with the store's location
   for(i = 0; i < locationArr.length; i++){
     var newTHeadElTossers = document.createElement('th');
@@ -185,7 +184,6 @@ function renderHeaders() {
   topRowLocationTossers.appendChild(totalsTHeadTossers);
 
 }
-
 
 function cookiesPerHourAllCalc() {
   var hourlyTotalsAll = new Array(locationArr[0].hoursOpen.length).fill(0);
@@ -221,7 +219,6 @@ function renderTotalsToPage() {
     newTDataEl.id = 'dataT';
     newTDataEl.textContent = calcResults[0][i];
     currentTRowEl.appendChild(newTDataEl);
-
 
   }
 
@@ -266,8 +263,6 @@ locationArr.push(new Store('Lima', 2, 16, 4.6));
 
 renderEverything();
 
-
-
 var newStoreForm = document.getElementById('newStore');
 newStoreForm.addEventListener('submit', function(newStoreSub){
   // Stop page from reloading first:
@@ -290,35 +285,3 @@ newStoreForm.addEventListener('submit', function(newStoreSub){
 
 
 });
-
-// TODO: CLEARING THE FORM : Try a new listener that clears it itself
-// newStoreForm.addEventListener('submit', function)
-// Google resetting a form or resetting in a form JS
-
-
-// THE CORE OF THIS CODE WAS INSPIRED BY AN ANSWER BY USER 'WuerfelDev' at: https://stackoverflow.com/questions/12786810/hover-on-element-and-highlight-all-elements-with-the-same-class
-
-// CHANGE THE CLASS NOT THE COLOR
-function hoverColumns(locationName){
-  var currentLocation=document.getElementsByClassName(locationName);
-
-  for(var i=0;i<currentLocation.length;i++){
-
-    currentLocation[i].onmouseover = function(){
-      for(var k=0;k<currentLocation.length;k++){
-        currentLocation[k].className = 'currentRow';
-      }
-    };
-
-    currentLocation[i].onmouseout = function(){
-      for(var k=0;k<currentLocation.length;k++){
-        currentLocation[k].className = 'data';
-
-      }
-    };
-  }
-}
-
-for(var i in locationArr) {
-  hoverColumns(locationArr[i].location);
-}
